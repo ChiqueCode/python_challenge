@@ -11,29 +11,41 @@
 import os
 import csv
 
-#create empty lists 
-total_profit = []
+total_months = 0
+total_profit = 0
 
 csvpath = os.path.join("Resources", "budget_data.csv")
 with open(csvpath, 'r') as csvfile:
     csvreader = csv.reader(csvfile, delimiter=",")
     header = next(csvreader)
-
-    data = list(csvreader)
-    row_count = len(data) 
-    print("Total Months: " + str(row_count)) 
-
-    # Iterate through the rows in the stored file contents
     for row in csvreader: 
+        data = list(csvreader)
+        row_count = len(data)
+        #total_profit = sum(int(row[1]) for row in csv.reader(csvfile))
+        total_profit = total_profit + int(row[1])
 
-        # Append the total months and total profit to their corresponding lists
-        #total_profit.append(int(row[1]))    
+#def get_averages(csvpath):
+    #column_sums = None
+    #with open(csvpath) as file:
+        #lines = file.readlines()
+        #rows_of_numbers = [map(float, line.split(',')) for line in lines]
+        #sums = map(sum, zip(*rows_of_numbers))
+        #averages = [sum_item / len(lines) for sum_item in sums]
+        #return averages
 
-        total_profit = sum(int(row[1] for row in csv.reader(csvfile))
-        print(total_profit)     
+#print(get_averages(csvpath))
 
-# print the data
-#print("Total profit: " + str(total_profit))
+
+
+
+
+
+
+
+print("Total Months: " + str(row_count))  
+print("Total Profit: " + str(total_profit))
+
+
 
   #Total: $38382578
   #Average  Change: $-2315.12
