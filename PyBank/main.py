@@ -9,9 +9,15 @@ import csv
 total_months = 0
 total_profit = 0
 total_profit_list = []
-revenue_change = 0
-revenue_change_list = []
+average_change = 0
+monthly_change_list = []
 month_of_change = []
+prev_revenue = 0
+monthly_change = 0
+gt_revenue_increase = 0
+gt_revenue_increase_month = ""
+gt_revenue_decrease = 0
+gt_revenue_decrease_month = ""
 
 csvpath = os.path.join("Resources", "budget_data.csv")
 with open(csvpath, 'r') as csvfile:
@@ -19,16 +25,25 @@ with open(csvpath, 'r') as csvfile:
     header = next(csvreader)
     for row in csvreader: 
         total_months = total_months + 1
-        total_profit = total_profit + abs(int(row[1]))
-        total_profit_list.append(row[1])
+        total_profit = total_profit + (int(row[1]))
+        monthly_change = int(row[1]) - prev_revenue 
+        monthly_change_list.append(monthly_change)
+        prev_revenue = int(row[1])
+        if monthly_change > gt_revenue_increase:
+            gt_revenue_increase = monthly_change
+            gt_revenue_increase_month = row[0]
+    print(gt_revenue_increase, gt_revenue_increase_month)    
+    monthly_change_list = monthly_change_list[1:]
+    #print(monthly_change_list)
+    average_change = sum(monthly_change_list) / len(monthly_change_list)
+    #print(average_change)
         
-    revenue_change = total_profit / total_months
 
 print("Total Months: " + str(total_months))  
 print("Total Profit: " + str(total_profit))
-print("Average Change: " + str(revenue_change))
-print(max(total_profit_list))
-print(min(total_profit_list))
+print("Average Change: " + str(average_change))
+#print(max(total_profit_list))
+#print(min(total_profit_list))
 
   #Total: $38382578
   #Average  Change: $-2315.12
