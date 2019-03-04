@@ -26,23 +26,30 @@ with open(csvpath, 'r') as csvfile:
     for row in csvreader: 
         total_months = total_months + 1
         total_profit = total_profit + (int(row[1]))
+        #calculating monthly change
         monthly_change = int(row[1]) - prev_revenue 
         monthly_change_list.append(monthly_change)
         prev_revenue = int(row[1])
+        #calculating greatest increase
         if monthly_change > gt_revenue_increase:
             gt_revenue_increase = monthly_change
             gt_revenue_increase_month = row[0]
-    print(gt_revenue_increase, gt_revenue_increase_month)    
+       #calculatiing greatest decrease
+        if monthly_change < gt_revenue_decrease:
+           gt_revenue_decrease = monthly_change
+           gt_revenue_decrease_month = row[0]
+
+
     monthly_change_list = monthly_change_list[1:]
-    #print(monthly_change_list)
+    
     average_change = sum(monthly_change_list) / len(monthly_change_list)
-    #print(average_change)
         
 
 print("Total Months: " + str(total_months))  
 print("Total Profit: " + str(total_profit))
 print("Average Change: " + str(average_change))
-#print(max(total_profit_list))
+print("The Greatest Increase is " + str(gt_revenue_increase) + " in " + str(gt_revenue_increase_month))
+print("The Greatest Decrease is" + str(gt_revenue_decrease) + "in " + str(gt_revenue_decrease_month))
 #print(min(total_profit_list))
 
   #Total: $38382578
